@@ -72,7 +72,7 @@ const LoginForm = ({setIsLoggedIn}) => {
                 />) : (<AiOutlineEye  fontSize={24} fill='#AFB3bf'/>)}
             </span>
 
-            <Link to="#">
+            <Link to="forgetpassword">
                 <p className='text-xs mt-1 max-w-max ml-auto  text-blue-100'>
                     Forgot Password
                 </p>
