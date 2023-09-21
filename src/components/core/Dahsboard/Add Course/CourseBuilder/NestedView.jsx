@@ -12,7 +12,7 @@ import {
 } from "../../../../../services/operations/courseDetailsAPI"
 import { setCourse } from "../../../../../slices/courseSlice"
 import ConfirmationModal from "../../../../Common/ConfirmationModal"
-import SubSectionModal from "./CourseBuilder/SubSectionModal"
+import SubSectionModal from "./SubSectionModal"
 
 export default function NestedView({ handleChangeEditSectionName }) {
   const { course } = useSelector((state) => state.course)

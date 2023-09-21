@@ -4,76 +4,81 @@ import { toast } from "react-hot-toast"
 import { HiOutlineCurrencyRupee } from "react-icons/hi"
 import { MdNavigateNext } from "react-icons/md"
 import { useDispatch, useSelector } from "react-redux"
+
 import {
-    addCourseDetails,
-    editCourseDetails,
-    fetchCourseCategories,
-  } from "../../../../../services/operations/courseDetailsAPI"
-  import { setCourse, setStep } from "../../../../../slices/courseSlice"
-  import { COURSE_STATUS } from "../../../../../utils/constants"
-  import IconBtn from "../../../../Common/IconBtn"
-import RequirementsField from "./RequirementField"
+  addCourseDetails,
+  editCourseDetails,
+  fetchCourseCategories,
+} from "../../../../../services/operations/courseDetailsAPI"
+import { setCourse, setStep } from "../../../../../slices/courseSlice"
+import { COURSE_STATUS } from "../../../../../utils/constants"
+import IconBtn from "../../../../Common/IconBtn"
+import Upload from "../Upload"
+import ChipInput from "./ChipInput"
+import RequirementsField from "./RequirementsField"
 
-const CourseInformationForm = () => {
+export default function CourseInformationForm() {
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useForm()
 
-    const {
-        register,
-        handleSubmit,
-        setValue,
-        getValues,
-        formState: { errors },
-      } = useForm()
-    
-      const dispatch = useDispatch()
-      const { token } = useSelector((state) => state.auth)
-      const { course, editCourse } = useSelector((state) => state.course)
-      const [loading, setLoading] = useState(false)
-      const [courseCategories, setCourseCategories] = useState([])
-    
-      useEffect(()=>{
-        const getCategories = async()=> {
-            setCourseCategories(true);
-            const categories = await fetchCourseCategories();
-            if(categories.length>0){
-                setCourseCategories (categories);
-            }
-            setLoading(false);
+  const dispatch = useDispatch()
+  const { token } = useSelector((state) => state.auth)
+  const { course, editCourse } = useSelector((state) => state.course)
+  const [loading, setLoading] = useState(false)
+  const [courseCategories, setCourseCategories] = useState([])
 
-        }
-        if(editCourse){
-            setValue("courseTitle", course.courseName)
-            setValue("courseShortDesc", course.courseDescription)
-            setValue("coursePrice", course.price)
-            setValue("courseTags", course.tag)
-            setValue("courseBenefits", course.whatYouWillLearn)
-            setValue("courseCategory", course.category)
-            setValue("courseRequirements", course.instructions)
-            setValue("courseImage", course.thumbnail)
-        }
-
-        getCategories();
-      }, [])
-      const isFormUpdated = () => {
-        const currentValues = getValues()
-        // console.log("changes after editing form values:", currentValues)
-        if (
-          currentValues.courseTitle !== course.courseName ||
-          currentValues.courseShortDesc !== course.courseDescription ||
-          currentValues.coursePrice !== course.price ||
-          currentValues.courseTags.toString() !== course.tag.toString() ||
-          currentValues.courseBenefits !== course.whatYouWillLearn ||
-          currentValues.courseCategory._id !== course.category._id ||
-          currentValues.courseRequirements.toString() !==
-            course.instructions.toString() ||
-          currentValues.courseImage !== course.thumbnail
-        ) {
-          return true
-        }
-        return false
+  useEffect(() => {
+    const getCategories = async () => {
+      setLoading(true)
+      const categories = await fetchCourseCategories()
+      if (categories.length > 0) {
+        // console.log("categories", categories)
+        setCourseCategories(categories)
       }
-    
-      
-     //   handle next button click
+      setLoading(false)
+    }
+    // if form is in edit mode
+    if (editCourse) {
+      // console.log("data populated", editCourse)
+      setValue("courseTitle", course.courseName)
+      setValue("courseShortDesc", course.courseDescription)
+      setValue("coursePrice", course.price)
+      setValue("courseTags", course.tag)
+      setValue("courseBenefits", course.whatYouWillLearn)
+      setValue("courseCategory", course.category)
+      setValue("courseRequirements", course.instructions)
+      setValue("courseImage", course.thumbnail)
+    }
+    getCategories()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const isFormUpdated = () => {
+    const currentValues = getValues()
+    // console.log("changes after editing form values:", currentValues)
+    if (
+      currentValues.courseTitle !== course.courseName ||
+      currentValues.courseShortDesc !== course.courseDescription ||
+      currentValues.coursePrice !== course.price ||
+      currentValues.courseTags.toString() !== course.tag.toString() ||
+      currentValues.courseBenefits !== course.whatYouWillLearn ||
+      currentValues.courseCategory._id !== course.category._id ||
+      currentValues.courseRequirements.toString() !==
+        course.instructions.toString() ||
+      currentValues.courseImage !== course.thumbnail
+    ) {
+      return true
+    }
+    return false
+  }
+
+  //   handle next button click
   const onSubmit = async (data) => {
     // console.log(data)
 
@@ -150,14 +155,13 @@ const CourseInformationForm = () => {
     setLoading(false)
   }
 
-
   return (
     <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="space-y-8 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-6"
+      onSubmit={handleSubmit(onSubmit)}
+      className="space-y-8 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-6"
     >
-     {/* Course Title */}
-     <div className="flex flex-col space-y-2">
+      {/* Course Title */}
+      <div className="flex flex-col space-y-2">
         <label className="text-sm text-richblack-5" htmlFor="courseTitle">
           Course Title <sup className="text-pink-200">*</sup>
         </label>
@@ -173,8 +177,8 @@ const CourseInformationForm = () => {
           </span>
         )}
       </div>
-       {/* Course Short Description */}
-       <div className="flex flex-col space-y-2">
+      {/* Course Short Description */}
+      <div className="flex flex-col space-y-2">
         <label className="text-sm text-richblack-5" htmlFor="courseShortDesc">
           Course Short Description <sup className="text-pink-200">*</sup>
         </label>
@@ -190,8 +194,8 @@ const CourseInformationForm = () => {
           </span>
         )}
       </div>
-        {/* Course Price */}
-        <div className="flex flex-col space-y-2">
+      {/* Course Price */}
+      <div className="flex flex-col space-y-2">
         <label className="text-sm text-richblack-5" htmlFor="coursePrice">
           Course Price <sup className="text-pink-200">*</sup>
         </label>
@@ -216,6 +220,7 @@ const CourseInformationForm = () => {
           </span>
         )}
       </div>
+      {/* Course Category */}
       <div className="flex flex-col space-y-2">
         <label className="text-sm text-richblack-5" htmlFor="courseCategory">
           Course Category <sup className="text-pink-200">*</sup>
@@ -242,7 +247,8 @@ const CourseInformationForm = () => {
           </span>
         )}
       </div>
-      {/* <ChipInput
+      {/* Course Tags */}
+      <ChipInput
         label="Tags"
         name="courseTags"
         placeholder="Enter Tags and press Enter"
@@ -250,16 +256,16 @@ const CourseInformationForm = () => {
         errors={errors}
         setValue={setValue}
         getValues={getValues}
-      /> */}
+      />
       {/* Course Thumbnail Image */}
-      {/* <Upload
+      <Upload
         name="courseImage"
         label="Course Thumbnail"
         register={register}
         setValue={setValue}
         errors={errors}
         editData={editCourse ? course?.thumbnail : null}
-      /> */}
+      />
       {/* Benefits of the course */}
       <div className="flex flex-col space-y-2">
         <label className="text-sm text-richblack-5" htmlFor="courseBenefits">
@@ -307,5 +313,3 @@ const CourseInformationForm = () => {
     </form>
   )
 }
-
-export default CourseInformationForm

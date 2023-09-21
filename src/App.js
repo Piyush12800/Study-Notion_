@@ -21,8 +21,21 @@ import PrivateRoute from "./components/core/Auth/PrivateRoute";
 import { getUserDetails } from "./services/operations/profileAPI"
 import { ACCOUNT_TYPE } from "./utils/constants"
 import EnrolledCourses from "./components/core/Dahsboard/EnrolledCourses"
-function App() {
+import Settings from "./components/core/Dahsboard/Settings"
+import AddCourse from "./components/core/Dahsboard/Add Course"
 
+function App() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { user } = useSelector((state) => state.profile)
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      const token = JSON.parse(localStorage.getItem("token"))
+      dispatch(getUserDetails(token, navigate))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   return (
   <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
   <Navbar/>
@@ -49,16 +62,7 @@ function App() {
             
           }
         />
-         <Route
-          path="signup"
-          element={
-            <OpenRoute>
-
-              <Signup/>
-            </OpenRoute>
-            
-          }
-        />
+       
          <Route
           path="forgetpassword"
           element={
@@ -109,12 +113,32 @@ function App() {
         />
           {/* Route for all users */}
           <Route path="dashboard/my-profile" element={<MyProfile />} /> 
+           <Route path="dashboard/settings" element={<Settings/>}/>
            <Route path="dashboard/enrolled-courses" element={<EnrolledCourses />} /> 
           {/* <Route path="dashboard/Settings" element={<Settings />} />
           {/* Route only for Instructors */}
-        
+          {user?.accountType=== ACCOUNT_TYPE.INSTRUCTOR &&(
+            <>
+            {/* <Route path="dashboard/instructor" element={<Instructor />} /> */}
+              {/* <Route path="dashboard/my-courses" element={<MyCourses />} /> */}
+              <Route path="dashboard/add-course" element={<AddCourse />} />
+              <Route
+                path="dashboard/edit-course/:courseId"
+                // element={<EditCourse />}
+              />
+            </>
+          )
+          }
           {/* Route only for Students */}
-         
+          {user?.accountType === ACCOUNT_TYPE.STUDENT && (
+            <>
+              <Route
+                path="dashboard/enrolled-courses"
+                element={<EnrolledCourses />}
+              />
+              {/* <Route path="/dashboard/cart" element={<Cart />} /> */}
+            </>
+          )}
           {/* <Route path="dashboard/settings" element={<Settings />} /> */}
       
                   {/* Private Route - for Only Logged in User */}

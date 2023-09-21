@@ -55,7 +55,7 @@ export async function BuyCourse(
         courses,
       },
       {
-        Authorisation: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       }
     )
 
@@ -102,7 +102,7 @@ async function verifyPayment(bodyData, token, navigate, dispatch) {
   dispatch(setPaymentLoading(true))
   try {
     const response = await apiConnector("POST", COURSE_VERIFY_API, bodyData, {
-      Authorisation: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     })
 
     console.log("VERIFY PAYMENT RESPONSE FROM BACKEND............", response)
@@ -134,7 +134,7 @@ async function sendPaymentSuccessEmail(response, amount, token) {
         amount,
       },
       {
-        Authorisation: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       }
     )
   } catch (error) {
