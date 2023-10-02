@@ -23,6 +23,8 @@ import { ACCOUNT_TYPE } from "./utils/constants"
 import EnrolledCourses from "./components/core/Dahsboard/EnrolledCourses"
 import Settings from "./components/core/Dahsboard/Settings"
 import AddCourse from "./components/core/Dahsboard/Add Course"
+import MyCourses from "./components/core/Dahsboard/MyCourses"
+import Catalog from "./pages/Catalog"
 
 function App() {
   const dispatch = useDispatch()
@@ -41,6 +43,7 @@ function App() {
   <Navbar/>
   <Routes>
     <Route path="/" element= {<Home/>}/>
+    <Route path="/catalog/:catalogName" element= {<Catalog/>}/>
     {/* Open Route - for Only Non Logged in User */}
     <Route
           path="login"
@@ -110,17 +113,18 @@ function App() {
               <Dashboard />
             </PrivateRoute>
           }
-        />
+        >
+        </Route>
           {/* Route for all users */}
           <Route path="dashboard/my-profile" element={<MyProfile />} /> 
            <Route path="dashboard/settings" element={<Settings/>}/>
-           <Route path="dashboard/enrolled-courses" element={<EnrolledCourses />} /> 
+        
           {/* <Route path="dashboard/Settings" element={<Settings />} />
           {/* Route only for Instructors */}
           {user?.accountType=== ACCOUNT_TYPE.INSTRUCTOR &&(
             <>
             {/* <Route path="dashboard/instructor" element={<Instructor />} /> */}
-              {/* <Route path="dashboard/my-courses" element={<MyCourses />} /> */}
+              <Route path="dashboard/my-courses" element={<MyCourses />} />
               <Route path="dashboard/add-course" element={<AddCourse />} />
               <Route
                 path="dashboard/edit-course/:courseId"

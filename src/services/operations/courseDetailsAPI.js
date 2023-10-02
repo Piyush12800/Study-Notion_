@@ -128,10 +128,15 @@ export const editCourseDetails = async (data, token) => {
   return result
 }
 
+
 // create a section
 export const createSection = async (data, token) => {
   let result = null
+
   const toastId = toast.loading("Loading...")
+  // console.log('Create section start');
+  // console.log(data);
+  // console.log(token);
   try {
     const response = await apiConnector("POST", CREATE_SECTION_API, data, {
       Authorization: `Bearer ${token}`,
@@ -145,6 +150,7 @@ export const createSection = async (data, token) => {
   } catch (error) {
     console.log("CREATE SECTION API ERROR............", error)
     toast.error(error.message)
+    console.log('Create section failed');
   }
   toast.dismiss(toastId)
   return result
