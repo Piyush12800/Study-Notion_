@@ -1,14 +1,15 @@
-import React from 'react'
-import { Navigate } from 'react-router-dom';
+// This will prevent non-authenticated users from accessing this route
+import { useSelector } from "react-redux"
+import { Navigate } from "react-router-dom"
 
-const PrivateRoute = ({isLoggedIn , children}) => {
+function PrivateRoute({ children }) {
+  const { token } = useSelector((state) => state.auth)
 
- if(isLoggedIn){
-   return children;
- }
- else{
- return   <Navigate to="/login"/>;
- }
+  if (token !== null) {
+    return children
+  } else {
+    return <Navigate to="/login" />
+  }
 }
 
 export default PrivateRoute

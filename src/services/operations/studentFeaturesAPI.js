@@ -36,10 +36,11 @@ export async function BuyCourse(
   dispatch
 ) {
   const toastId = toast.loading("Loading...")
+    console.log(user_details);
   try {
     // Loading the script of Razorpay SDK
     const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js")
-
+    
     if (!res) {
       toast.error(
         "Razorpay SDK failed to load. Check your Internet Connection."

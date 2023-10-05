@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux"
 
-import RenderCartCourses from "./RenderCartCourses"
+// import RenderCartCourses from "./RenderCartCourses"
+import RenderCartCourses from "./RenderCartCourse"
 import RenderTotalAmount from "./RenderTotalAmount"
 
 export default function Cart() {
