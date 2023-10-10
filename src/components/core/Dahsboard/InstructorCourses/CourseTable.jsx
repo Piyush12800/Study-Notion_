@@ -36,7 +36,7 @@ export default function CourseTable({ courses, setCourses }) {
     setConfirmationModal(null)
     setLoading(false)
   }
-
+  
   // console.log("All Course ", courses)
 
   return (

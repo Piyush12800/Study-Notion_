@@ -43,7 +43,7 @@ function CourseDetailsCard({ course, setConfirmationModal, handleBuyCourse }) {
       return
     }
     setConfirmationModal({
-      text1: "You are not logged in!",
+      text1: "You are not logged in!", 
       text2: "Please login to add To Cart",
       btn1Text: "Login",
       btn2Text: "Cancel",
