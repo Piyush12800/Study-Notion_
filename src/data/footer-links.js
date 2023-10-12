@@ -27,11 +27,7 @@ export const FooterLink2 = [
       { title: "JavaScript", link: "/javascript" },
       { title: "Kotlin", link: "/kotlin" },
       { title: "PHP", link: "/php" },
-      { title: "Python", link: "/python" },
-      { title: "R", link: "/r" },
-      { title: "Ruby", link: "/ruby" },
-      { title: "SQL", link: "/sql" },
-      { title: "Swift", link: "/swift" },
+
     ],
   },
   {
