@@ -26,7 +26,7 @@ const About = () => {
               and nurturing a vibrant learning community.
             </p>
           </header>
-          <div className="sm:h-[70px] lg:h-[150px]"></div>
+          <div className="w-11/12 sm:h-[70px] lg:h-[150px] "></div>
           <div className="absolute bottom-0 left-[50%] grid w-[100%] translate-x-[-50%] translate-y-[30%] grid-cols-3 gap-3 lg:gap-5">
             <img src={BannerImage1} alt="" />
             <img src={BannerImage2} alt="" />
@@ -39,22 +39,27 @@ const About = () => {
 
       {/* section 2 */}
  
-    <section>
-        <div>
+    <section className='mt-[150px]'>
+        <div >
     <Quote/>
         </div>
     </section>
  
     {/* section 3 */}
 
-    <section>
-        <div>
+    <section className=''>
+        <div className= ''>
 
         {/* founding story div */}
-            <div>
+        <div className='w-11/12 mx-auto '>
+
+        
+            <div className="my-24 flex lg:w-[40%] flex-row gap-10 justify-evenly">
             {/* left box */}
-                <div>
-                    <h1>Our Founding Story</h1>
+            <div className=''>
+              <h1 className="bg-gradient-to-b from-[#FF512F] to-[#F09819] bg-clip-text text-4xl font-semibold text-transparent lg:w-[70%] ">
+                Our Founding Story
+              </h1>
                     <p className="text-base font-medium text-richblack-300 lg:w-[95%]">
                 Our e-learning platform was born out of a shared vision and
                 passion for transforming education. It all began with a group of
@@ -73,13 +78,16 @@ const About = () => {
               </p>
                 </div>
                 {/* right image */}
-                <div>
-                    <img src={FoundingStory}/>
+                <div  className="absolute  left-[50%] grid w-[100%]  grid-cols-3 gap-3 lg:gap-5">
+                    <img src={FoundingStory}
+
+                    />
+                </div>
                 </div>
             </div>
 
             {/*vission and mission */}
-            <div className="flex flex-col items-center lg:gap-10 lg:flex-row justify-between">
+            <div className="flex flex-col items-center lg:gap-10 lg:flex-row justify-evenly">
             <div className="my-24 flex lg:w-[40%] flex-col gap-10">
               <h1 className="bg-gradient-to-b from-[#FF512F] to-[#F09819] bg-clip-text text-4xl font-semibold text-transparent lg:w-[70%] ">
                 Our Vision
